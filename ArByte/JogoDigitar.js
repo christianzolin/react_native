@@ -1,13 +1,13 @@
 
 import React, { Component } from 'react';
-import { 
+import {
   View, TextInput, Text, Button, Alert, SafeAreaView, StyleSheet
 } from 'react-native';
 
 class Contador extends Component {
   render() {
     return (
-      <TextInput 
+      <TextInput
         {...this.props}
       />
     );
@@ -17,93 +17,93 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      texto: '', tempo: 10, play: false
+      texto: '', tempo: 10, play: false, total: 0
     }
-    this.contador;
   }
-  componentDidMount(){
+  componentDidMount() {
     this.start()
   }
-  start(){
-    this.contador = setInterval(() => {
-      this.decrementaContadador()},1000
+
+  start() {
+    clearInterval(this.tempo);
+    this.tempo = setInterval(() => {
+      this.setState({ tempo: this.state.tempo - 1 })
+    }, 1000
     );
-    this.setState({play: true});
+    this.setState({ play: true, texto: '' });
   }
-  
-  decrementaContadador(){
-      this.setState((state=>({tempo: state.tempo - 1})))
-    if(this.state.tempo === 0 ){
-      this.setState({play: false})
-      this.componentWillUnmount()
+  componentDidUpdate() {
+    if (this.state.tempo === 0) {
+      clearInterval(this.tempo);
+      Alert.alert(`A sua pontuação é ${this.state.texto.length}`)
+      this.setState({ total: this.state.texto.length, play: false, tempo: 10 })
     }
-  }
- 
-  componentWillUnmount(){
-    clearInterval(this.contador); 
-    Alert.alert(`A sua pontuação é ${this.state.texto.length}`)
   }
   render() {
     return (
       <View style={{
         backgroundColor: this.state.texto,
-        borderBottomWidth: 1 }}
-        >
+        borderBottomWidth: 1
+      }}
+      >
         <Text style={styles.text}>Digite o máximo de caracteres que conseguir em 10 Segundos </Text>
         <Text style={styles.tempo}>Tempo: {this.state.tempo} </Text>
         <Contador
           style={styles.textoInput}
-          numberOfLines = {4}
+          numberOfLines={4}
           editable={this.state.play}
-          multiline = {true}
+          multiline={true}
           placeholder='Digite aqui'
-          onChangeText={(text) => this.setState({texto: text})}
+          onChangeText={(text) => this.setState({ texto: text })}
           value={this.state.texto}
         />
-      
-      <View style={styles.view}>
-      <Button
-        title="reload"
-        onPress={()=>{
-          this.setState({texto: '', tempo: 10, play: false})
-          this.start()
-        }}
-        />
+        <View style={styles.view}>
+          <Button
+            style={{ paddingTop: 10 }}
+            title="reload"
+            onPress={() => {
+              this.start()
+            }}
+          />
+          <SafeAreaView style={{ marginTop: 20 }}>
+            <Text style={{ fontSize: 18, textAlign: 'center' }}>Você digitou: {this.state.total} caracteres</Text>
+          </SafeAreaView>
         </View>
-    </View>
+      </View>
     );
   }
 }
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-        <Game />
+      <Game />
     </SafeAreaView>
+
   );
 }
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
-    backgroundColor:'#FFF',
+    backgroundColor: '#FFF',
     paddingTop: 40,
     paddingHorizontal: 50
-  }, 
+  },
   text: {
-    marginTop:10,
+    marginTop: 10,
     padding: 15,
     fontSize: 20,
     textAlign: 'justify',
   },
-  tempo:{
+  tempo: {
     fontSize: 18
   },
-  textoInput:{
-    marginTop:10,
-    height: 70, 
-    borderColor: 'gray', 
+  textoInput: {
+    marginTop: 10,
+    height: 70,
+    borderColor: 'gray',
     borderWidth: 2
   },
-  view:{
+  view: {
     padding: 10,
     marginTop: 10
   }
