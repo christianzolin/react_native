@@ -1,37 +1,33 @@
 import React from 'react';
-import {
-    SafeAreaView, View,
-} from 'react-native';
+import { View } from 'react-native';
 
 const caixas = [{
-    cor: 'red', flex: 3
+  cor: 'red', flex: 3
 }, {
-    cor: 'blue', flex: 1
+  cor: 'blue', flex: 1
 }, {
-    cor: 'yellow', flex: 2
+  cor: 'yellow', flex: 3
 }]
 const Caixa = ({ cor, flex }) => {
-    return (
-        <View style={{
-            backgroundColor: cor,
-            borderRadius: 5,
-            margin: 5,
-            flex: flex,
-        }}>
-        </View>
-    )
+  return (
+    <View style={{
+      backgroundColor: cor,
+      borderRadius: 5,
+      margin: 5,
+      flex: flex,
+    }}>
+    </View>
+  )
 }
 
 const App = () => {
-    return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
-                {
-                    caixas.map(caixa => <Caixa cor={caixa.cor} flex={caixa.flex} />)
-                }
-            </View>
-        </SafeAreaView>
-    );
+  return (
+    <View style={{ flex: 1 }}>
+      {
+        caixas.map(caixa => <Caixa cor={caixa.cor} flex={caixa.flex} />)
+      }
+    </View>
+  );
 };
 
 export default App;

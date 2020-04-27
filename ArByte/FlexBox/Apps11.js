@@ -1,34 +1,23 @@
 import React from 'react';
 import { View } from 'react-native';
 
-const caixas = [{
-  cor: 'red', 
-}, {
-  cor: 'blue', 
-}, {
-  cor: 'yellow',
-  
-}]
 const Caixa = ({ cor }) => {
   return (
     <View style={{
-      backgroundColor: cor,
-      borderRadius: 5,
-      margin: 5,
       width: 100,
       height: 100,
+      backgroundColor: cor,
+      borderRadius: 5,
     }}>
     </View>
   )
 }
 const App = () => {
   return (
-    <View>
-      {
-        caixas.map(caixa => <Caixa cor={caixa.cor} />)
-      }
+    <View style={{ flex: 1, alignItems: "center", justifyContent: 'space-evenly' }}>
+      <Caixa cor='red' />
+      <Caixa cor='blue' />
     </View>
   );
 };
-
 export default App;

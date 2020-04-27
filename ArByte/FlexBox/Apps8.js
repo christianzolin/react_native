@@ -1,33 +1,30 @@
 import React from 'react';
 import { View } from 'react-native';
 
-const Caixa = ({ cor, margin }) => {
+const Caixa = ({ cor, flex }) => {
   return (
     <View style={{
       width: 100,
       height: 100,
       backgroundColor: cor,
       borderRadius: 5,
-      margin: margin
+      flex: flex,
     }}>
     </View>
   )
 }
-
 const App = () => {
   return (
     <View style={{ flex: 1 }}>
       <View style={{
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'flex-end'
       }}>
-        <Caixa cor='red' margin={12} />
-        <Caixa cor='blue' />
+        <Caixa cor='red' flex={1} />
+        <Caixa cor='blue' flex={3} />
       </View>
     </View>
   );
 };
-
 export default App;
